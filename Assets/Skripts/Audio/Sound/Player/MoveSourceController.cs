@@ -1,10 +1,9 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoveSourceController: MonoBehaviour
 {
-    [SerializeField] private PlayerController _controller;
+    [SerializeField] private MovementSystem _movementSystem;
     [SerializeField] private AudioSource _MoveSourse;
     [SerializeField] private AudioClip _clip;
     [SerializeField] private float speed = 0.2f;
@@ -21,12 +20,12 @@ public class MoveSourceController: MonoBehaviour
 
     private void OnEnable()
     {
-        _controller.IsMoving += Play;
+        _movementSystem.PlayerMoved += Play;
     }
 
     private void OnDisable()
     {
-        _controller.IsMoving -= Play;
+        _movementSystem.PlayerMoved -= Play;
     }
 
     public void Play(bool isMoving)

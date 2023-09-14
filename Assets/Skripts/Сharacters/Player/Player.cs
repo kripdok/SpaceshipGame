@@ -1,7 +1,6 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerHealthSystem))]
-[RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(PlayerSkills))]
 [RequireComponent(typeof(StayInside))]
 public class Player : MonoBehaviour
@@ -10,16 +9,14 @@ public class Player : MonoBehaviour
 
     [SerializeField] private PlayerEffects _effects;
     [SerializeField] private Transform _body;
-    [SerializeField] private PlayerSound _playerSound;
+    [SerializeField] private PlayerSound _sound;
 
-    private PlayerController _playerController;
     private PlayerHealthSystem _healthSystem;
     private PlayerShield _shield;
 
 
     private void Awake()
     {
-        _playerController = GetComponent<PlayerController>();
         _shield = GetComponent<PlayerShield>();
         _healthSystem = GetComponent<PlayerHealthSystem>();
     }
@@ -38,8 +35,7 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        _playerController.enabled = false;
-        _playerSound.PlaySound(_playerSound.Dead);
+        _sound.PlaySound(_sound.Dead);
         _body.gameObject.SetActive(false);
         _effects.DeathEffect.Play();
     }
