@@ -9,7 +9,7 @@ public class PlayerShield : MonoBehaviour
 
     private PlayerHealthSystem _healthSystem;
     private PlayerSkills _skills;
-    private Coroutine _shieldRoutine;
+    private Coroutine _shieldCooutine;
 
     public event UnityAction<bool> Works;
 
@@ -33,13 +33,12 @@ public class PlayerShield : MonoBehaviour
 
     public void TurnOn()
     {
-        _shieldRoutine = StartCoroutine(ShieldDuration());
-    }
+        if(_shieldCooutine != null)
+        {
+            StopCoroutine(_shieldCooutine);
+        }
 
-    private void TurnOff() // корутина выключается сама, надо удалить этот метод
-    {
-        
-        StopCoroutine(_shieldRoutine);
+        _shieldCooutine = StartCoroutine(ShieldDuration());
     }
 
     private IEnumerator ShieldDuration()
@@ -53,6 +52,5 @@ public class PlayerShield : MonoBehaviour
         _shield.SetActive(false);
         Works?.Invoke(false);
         _shieldSound.PlaySound(_shieldSound.ShieldDeactivate);
-        TurnOff();
     }
 }

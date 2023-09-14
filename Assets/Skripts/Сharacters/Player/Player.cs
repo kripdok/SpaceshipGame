@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
         _effects.DeathEffect.Play();
     }
 
-    private void UpdateShieldStatus(bool shieldStatus) // Думаю надо пересмотреть систему щита, потомучто работа щита задействована на командах if else
+    private void UpdateShieldStatus(bool shieldStatus)
     {
         IsShieldActive = shieldStatus;
     }
