@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -29,16 +28,16 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
 
     private void OnEnable()
     {
-        _player.DeadIsPlayed += FinishTheGame;
+        _player.IsDead += FinishTheGame;
         _pointCounter.MilestoneReached += ActivateLevelUpButton;
         _timer.MilestoneReached += RequestImproveEnemies;
         _menu.ClosingPanel += DisablePause;
         _menu.OpeningPanel += EnablePause;
     }
 
-    private void OnDisable() // все Системы могут напрямую обращаться к своим UI. GameManager является лишней прослойкой.
+    private void OnDisable()
     {
-        _player.DeadIsPlayed -= FinishTheGame;
+        _player.IsDead -= FinishTheGame;
         _pointCounter.MilestoneReached -= ActivateLevelUpButton;
         _timer.MilestoneReached -= RequestImproveEnemies;
         _menu.ClosingPanel -= DisablePause;

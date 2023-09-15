@@ -17,8 +17,7 @@ public class PlayerShield : MonoBehaviour
     {
         _healthSystem = GetComponent<PlayerHealthSystem>();
         _skills = GetComponent<PlayerSkills>();
-        _shield.SetActive(false);
-        Works?.Invoke(false);
+        ChangeTheActivation(false);
     }
 
     private void OnEnable()
@@ -29,28 +28,39 @@ public class PlayerShield : MonoBehaviour
     private void OnDisable()
     {
         _healthSystem.TookDamage -= TurnOn;
+
+        TryToStopCoroutine(_shieldCooutine);
     }
 
     public void TurnOn()
     {
-        if(_shieldCooutine != null)
-        {
-            StopCoroutine(_shieldCooutine);
-        }
+        TryToStopCoroutine(_shieldCooutine);
 
         _shieldCooutine = StartCoroutine(ShieldDuration());
     }
 
+    private void TryToStopCoroutine(Coroutine coroutine)
+    {
+        if (_shieldCooutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+    }
+
     private IEnumerator ShieldDuration()
     {
+        ChangeTheActivation(true);
         _shieldSound.PlaySound(_shieldSound.ShieldActivate);
-        _shield.SetActive(true);
-        Works?.Invoke(true);
 
         yield return new WaitForSeconds(_skills.ShieldRuntime);
 
-        _shield.SetActive(false);
-        Works?.Invoke(false);
+        ChangeTheActivation(false);
         _shieldSound.PlaySound(_shieldSound.ShieldDeactivate);
+    }
+
+    private void ChangeTheActivation(bool Value)
+    {
+        _shield.SetActive(Value);
+        Works?.Invoke(Value);
     }
 }

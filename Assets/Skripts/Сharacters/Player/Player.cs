@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,10 +13,11 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform _body;
     [SerializeField] private PlayerSound _sound;
 
+    private float PlaybackTimeOfDeathEffect = 2;
     private PlayerHealthSystem _healthSystem;
     private PlayerShield _shield;
 
-    public event UnityAction DeadIsPlayed;
+    public event UnityAction IsDead;
 
 
     private void Awake()
@@ -27,22 +29,30 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         _shield.Works += UpdateShieldStatus;
-        _healthSystem.Died += Die;
+        _healthSystem.Died += RunDeathEffectsCoroutine;
     }
 
     private void OnDisable()
     {
         _shield.Works -= UpdateShieldStatus;
-        _healthSystem.Died -= Die;
+        _healthSystem.Died -= RunDeathEffectsCoroutine;
     }
 
-    private void Die() // Переделать систему смерти. Сделать карутину ожидания, после которой отправляется экшен (игрок проиграл свои анимации)
-        //Отправить Invoke GameOver
+    private void RunDeathEffectsCoroutine()
     {
-        DeadIsPlayed?.Invoke();
+        _shield.enabled = false;
+        StartCoroutine(PlayTheDeathEffects());
+    }
+
+    private IEnumerator PlayTheDeathEffects()
+    {
         _sound.PlaySound(_sound.Dead);
         _body.gameObject.SetActive(false);
         _effects.DeathEffect.Play();
+
+        yield return new WaitForSeconds(PlaybackTimeOfDeathEffect);
+
+        IsDead?.Invoke();
     }
 
     private void UpdateShieldStatus(bool shieldStatus)
