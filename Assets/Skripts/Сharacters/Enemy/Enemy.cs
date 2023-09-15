@@ -57,10 +57,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Destroy()
+    private void Destroy() // Переделать систему смерти. 
     {
         StopCoroutine(PlayDaiEffect());
-        PassPoint?.Invoke(_points);
         SpavnItem();
         Destroy(gameObject);
     }
@@ -71,6 +70,7 @@ public class Enemy : MonoBehaviour
         _circleCollider.isTrigger = true;
         _effect.DeathEffect.Play();
         _body.SetActive(false);
+        PassPoint?.Invoke(_points);
 
         yield return new WaitForSeconds(2f); // Добавить переменную отвечающую за эту цифру
 

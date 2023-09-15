@@ -1,19 +1,28 @@
+using UnityEngine;
 using UnityEngine.Events;
 
-public class PointCounter
+public class PointCounter : MonoBehaviour
 {
-    private PointCounterUI _pointCounterUI;
-    private int _targetNumber;
+    [SerializeField] private PointCounterUI _pointCounterUI;
+    [SerializeField] private int _targetNumber = 50;
     public int CorrectPoint { get; private set; }
 
     public event UnityAction MilestoneReached;
 
-    public PointCounter(PointCounterUI pointCounterUI, int targetNumber)
+    public void Awake()
     {
         CorrectPoint = 0;
-        _targetNumber = targetNumber;
-        _pointCounterUI = pointCounterUI;
         _pointCounterUI.ChangeValue(CorrectPoint, _targetNumber);
+    }
+
+    private void OnEnable()
+    {
+        Enemy.PassPoint += AddPoints;
+    }
+
+    private void OnDisable()
+    {
+        Enemy.PassPoint -= AddPoints;
     }
 
     public void AddPoints(int points)

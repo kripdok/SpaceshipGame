@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
     [SerializeField] private Player _player;
     [SerializeField] private PlayerHealthSystem _playerHealthSystem;
     [Space(5)]
+    [SerializeField] private PointCounter _pointCounter;
     [Header("UI")]
-    [SerializeField] private PointCounterUI _pointCounterUI;
     [SerializeField] private TimerUI _timerUI;
     [SerializeField] private PlayerHealthCounterUI _playerHealthCounterUI;
     [SerializeField] private Menu _menu;
@@ -20,10 +20,9 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
     [Header("Target")]
     [Tooltip("Time is measured in seconds")]
     [SerializeField] private float _timeTarget;
-    [SerializeField] private int _pointsTarget;
 
     private Timer _timer;
-    private PointCounter _pointCounter;
+    
 
     public event UnityAction GameIsOver;
     public event UnityAction ReinforceEnemies;
@@ -31,13 +30,11 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
     private void Awake()
     {
         _timer = new Timer(_timerUI, _timeTarget);
-        _pointCounter = new PointCounter(_pointCounterUI, _pointsTarget);
         _levelUpButton.gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
-        Enemy.PassPoint += AddPoints;
         _playerHealthSystem.Died += FinishTheGame;
         _playerHealthSystem.ChangeValue += ChangePleyarHealtUI;
         _pointCounter.MilestoneReached += ActivateLevelUpButton;
@@ -51,9 +48,8 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
         _timer.Update();
     }
 
-    private void OnDisable()
+    private void OnDisable() // все Системы могут напрямую обращаться к своим UI. GameManager является лишней прослойкой.
     {
-        Enemy.PassPoint -= AddPoints;
         _playerHealthSystem.Died -= FinishTheGame;
         _playerHealthSystem.ChangeValue -= ChangePleyarHealtUI;
         _pointCounter.MilestoneReached -= ActivateLevelUpButton;
@@ -73,26 +69,24 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
         ReinforceEnemies.Invoke();
     }
 
-    private void EnablePause()
+    private void EnablePause() // сделать отдельный класс который отвечает за остановку время
     {
         Time.timeScale = 0;
     }
 
-    private void DisablePause()
+    private void DisablePause()//
     {
         Time.timeScale = 1f;
     }
 
-    private void AddPoints(int point)
-    {
-        _pointCounter.AddPoints(point);
-    }
 
     private void ChangePleyarHealtUI(int number)
     {
         _playerHealthCounterUI.ChangeValue(number);
     }
 
+
+    // Надо сделать отдельный крипт, который отвечает за отключение всех систем, при смерте персонажа. И тот скрипт вызывает финальное окно
     private void FinishTheGame()
     {
         StartCoroutine(Waiting());
