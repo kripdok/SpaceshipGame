@@ -2,32 +2,40 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Timer
+public class Timer : MonoBehaviour
 {
-    private TimerUI _timerUI;
+    [SerializeField] private TimerUI _timerUI;
+    [SerializeField] private float _targetTime = 30;
+
     private float _correñtTime;
-    private float _targetTime;
 
     public event UnityAction MilestoneReached;
 
-    public Timer(TimerUI timerUI, float targetTime)
+    private void Awake()
     {
         _correñtTime = 0;
-        _timerUI = timerUI;
-        _targetTime = targetTime;
     }
 
-    public void Update()
+    private void Update()
     {
-        _correñtTime += Time.deltaTime; // Îòäåëüíûé ìåòîä
-        TimeSpan time = TimeSpan.FromSeconds(_correñtTime);
-        _timerUI.ChangeValue(time);
-        
+        ChangeTimerValue();
 
         if (_correñtTime >= _targetTime)
         {
-            MilestoneReached?.Invoke();
-            _targetTime += _targetTime;
+            ChangeTargetTime();
         }
+    }
+
+    private void ChangeTimerValue()
+    {
+        _correñtTime += Time.deltaTime;
+        TimeSpan time = TimeSpan.FromSeconds(_correñtTime);
+        _timerUI.ChangeValue(time);
+    }
+
+    private void ChangeTargetTime()
+    {
+        MilestoneReached?.Invoke();
+        _targetTime += _targetTime;
     }
 }

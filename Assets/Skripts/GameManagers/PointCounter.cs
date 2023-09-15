@@ -25,16 +25,23 @@ public class PointCounter : MonoBehaviour
         Enemy.PassPoint -= AddPoints;
     }
 
-    public void AddPoints(int points)
+    private void AddPoints(int points)
     {
         CorrectPoint += points;
-       
+
         if (CorrectPoint >= _targetNumber)
         {
-            MilestoneReached?.Invoke();
-            _targetNumber *= 2;
+            ChangeTargetPoint();
         }
 
         _pointCounterUI.ChangeValue(CorrectPoint, _targetNumber);
+    }
+
+    private void ChangeTargetPoint()
+    {
+
+        MilestoneReached?.Invoke();
+        _targetNumber *= 2;
+
     }
 }

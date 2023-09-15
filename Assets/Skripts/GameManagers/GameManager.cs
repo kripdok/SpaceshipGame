@@ -10,26 +10,18 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
     [SerializeField] private PlayerHealthSystem _playerHealthSystem;
     [Space(5)]
     [SerializeField] private PointCounter _pointCounter;
+    [SerializeField] private Timer _timer;
     [Header("UI")]
-    [SerializeField] private TimerUI _timerUI;
     [SerializeField] private PlayerHealthCounterUI _playerHealthCounterUI;
     [SerializeField] private Menu _menu;
     [SerializeField] private DeadWindow _deadWindow;
-    [SerializeField] private Button _levelUpButton;
-    [Space(5)]
-    [Header("Target")]
-    [Tooltip("Time is measured in seconds")]
-    [SerializeField] private float _timeTarget;
-
-    private Timer _timer;
-    
+    [SerializeField] private Button _levelUpButton;    
 
     public event UnityAction GameIsOver;
     public event UnityAction ReinforceEnemies;
 
     private void Awake()
     {
-        _timer = new Timer(_timerUI, _timeTarget);
         _levelUpButton.gameObject.SetActive(false);
     }
 
@@ -41,11 +33,6 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
         _timer.MilestoneReached += RequestImproveEnemies;
         _menu.ClosingPanel += DisablePause;
         _menu.OpeningPanel += EnablePause;
-    }
-
-    private void Update()
-    {
-        _timer.Update();
     }
 
     private void OnDisable() // все Системы могут напрямую обращаться к своим UI. GameManager является лишней прослойкой.
