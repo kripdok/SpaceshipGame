@@ -13,7 +13,7 @@ public class HealthSystem : MonoBehaviour
         _correctHealth = _health;
     }
 
-    public virtual void GetDamage(int damage)
+    public virtual void CauseDamage(int damage)
     {
         _correctHealth -= damage;
 

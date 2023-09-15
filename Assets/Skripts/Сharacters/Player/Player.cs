@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     private void Die() // Переделать систему смерти. Сделать карутину ожидания, после которой отправляется экшен (игрок проиграл свои анимации)
         //Отправить Invoke GameOver
     {
+        DeadIsPlayed?.Invoke();
         _sound.PlaySound(_sound.Dead);
         _body.gameObject.SetActive(false);
         _effects.DeathEffect.Play();

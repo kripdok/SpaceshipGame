@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Pause : MonoBehaviour
+public class Pause
 {
     public void StopGameTime() 
     {

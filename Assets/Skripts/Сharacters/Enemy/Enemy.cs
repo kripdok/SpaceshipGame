@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<Player>(out Player player))
         {
-            player.GetComponent<HealthSystem>().GetDamage(_damage);
+            player.GetComponent<HealthSystem>().CauseDamage(_damage);
 
         }
     }

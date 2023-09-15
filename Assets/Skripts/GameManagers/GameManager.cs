@@ -7,29 +7,29 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
 {
     [Header("Player")]
     [SerializeField] private Player _player;
-    [SerializeField] private PlayerHealthSystem _playerHealthSystem;
     [Space(5)]
-    [SerializeField] private PlayerHealthCounterUI _playerHealthCounterUI;
+    
     [SerializeField] private PointCounter _pointCounter;
     [SerializeField] private Timer _timer;
-    [SerializeField] private Pause _pause;
     [SerializeField] private GameOver _gameOver;
     [Header("UI")]
     [SerializeField] private Menu _menu;
     
     [SerializeField] private Button _levelUpButton;    
 
+     private Pause _pause;
+
     public event UnityAction ReinforceEnemies;
 
     private void Awake()
     {
+        _pause = new Pause();
         _levelUpButton.gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
         _player.DeadIsPlayed += FinishTheGame;
-        _playerHealthSystem.ChangeValue += ChangePleyarHealtUI;
         _pointCounter.MilestoneReached += ActivateLevelUpButton;
         _timer.MilestoneReached += RequestImproveEnemies;
         _menu.ClosingPanel += DisablePause;
@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
     private void OnDisable() // все Системы могут напрямую обращаться к своим UI. GameManager является лишней прослойкой.
     {
         _player.DeadIsPlayed -= FinishTheGame;
-        _playerHealthSystem.ChangeValue -= ChangePleyarHealtUI;
         _pointCounter.MilestoneReached -= ActivateLevelUpButton;
         _timer.MilestoneReached -= RequestImproveEnemies;
         _menu.ClosingPanel -= DisablePause;
@@ -55,11 +54,6 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
     private void RequestImproveEnemies()
     {
         ReinforceEnemies.Invoke();
-    }
-
-    private void ChangePleyarHealtUI(int number) // Перенести в систему жизней?
-    {
-        _playerHealthCounterUI.ChangeValue(number);
     }
 
     private void EnablePause()

@@ -23,12 +23,12 @@ public class PlayerShield : MonoBehaviour
 
     private void OnEnable()
     {
-        _healthSystem.GainDamage += TurnOn;
+        _healthSystem.TookDamage += TurnOn;
     }
 
     private void OnDisable()
     {
-        _healthSystem.GainDamage -= TurnOn;
+        _healthSystem.TookDamage -= TurnOn;
     }
 
     public void TurnOn()

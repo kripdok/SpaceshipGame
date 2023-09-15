@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<HealthSystem>(out HealthSystem health))
         {
-            health.GetDamage(Damage + _concreteDamage);
+            health.CauseDamage(Damage + _concreteDamage);
             Destroy(gameObject);
         }
     }

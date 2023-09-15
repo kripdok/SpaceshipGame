@@ -1,21 +1,21 @@
 using UnityEngine.Events;
 using UnityEngine;
 
-public class PlayerHealthSystem : HealthSystem // ≈сли подумать можно разделить методы получени€ урона и лечени€ на 2 класса. —истема жизней управл€ет эти классы и запускает их.
+public class PlayerHealthSystem : HealthSystem 
 {
     [SerializeField] private PlayerSound _sound;
+    [SerializeField] private PlayerHealthCounterUI _playerHealthCounterUI;
 
     private Player _player;
-    public event UnityAction<int> ChangeValue;
-    public event UnityAction GainDamage;
+    public event UnityAction TookDamage;
 
     private void Start()
     {
         _player = GetComponent<Player>();
-        ChangeValue?.Invoke(_correctHealth);
+        ChangeValueUI();
     }
 
-    public override void GetDamage(int damage)
+    public override void CauseDamage(int damage)
     {
         if (_player.IsShieldActive)
         {
@@ -23,10 +23,7 @@ public class PlayerHealthSystem : HealthSystem // ≈сли подумать можно разделить 
         }
         else
         {
-            _sound.PlaySound(_sound.Collision);
-            base.GetDamage(damage);
-            ChangeValue?.Invoke(_correctHealth);
-            GainDamage?.Invoke();
+            GetDamage(damage);
         }
     }
 
@@ -34,6 +31,19 @@ public class PlayerHealthSystem : HealthSystem // ≈сли подумать можно разделить 
     {
         _sound.PlaySound(_sound.PickUpHeal);
         _correctHealth += health;
-        ChangeValue?.Invoke(_correctHealth);
+        ChangeValueUI();
+    }
+
+    private void GetDamage(int damage)
+    {
+        base.CauseDamage(damage);
+        ChangeValueUI();
+        _sound.PlaySound(_sound.Collision);
+        TookDamage?.Invoke();
+    }
+
+    private void ChangeValueUI()
+    {
+        _playerHealthCounterUI.ChangeValue(_correctHealth);
     }
 }
