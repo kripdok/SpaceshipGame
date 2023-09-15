@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerHealthSystem))]
 [RequireComponent(typeof(PlayerSkills))]
@@ -13,6 +14,8 @@ public class Player : MonoBehaviour
 
     private PlayerHealthSystem _healthSystem;
     private PlayerShield _shield;
+
+    public event UnityAction DeadIsPlayed;
 
 
     private void Awake()
@@ -33,7 +36,8 @@ public class Player : MonoBehaviour
         _healthSystem.Died -= Die;
     }
 
-    private void Die()
+    private void Die() // Переделать систему смерти. Сделать карутину ожидания, после которой отправляется экшен (игрок проиграл свои анимации)
+        //Отправить Invoke GameOver
     {
         _sound.PlaySound(_sound.Dead);
         _body.gameObject.SetActive(false);
