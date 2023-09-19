@@ -5,8 +5,8 @@ public class PlayerHealthCounterUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text _text;
 
-    public void ChangeValue(int number) // какое value?
+    public void DisplayHealthOnScreen(int health)
     {
-        _text.text = "X" + number;
+        _text.text = "X" + health;
     }
 }

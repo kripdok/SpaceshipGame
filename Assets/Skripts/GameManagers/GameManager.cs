@@ -8,15 +8,12 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
     [Space(5)]
     
     [SerializeField] private PointCounter _pointCounter;
-    [SerializeField] private Timer _timer;
     [SerializeField] private GameOver _gameOver;
     [Header("UI")]
     [SerializeField] private Menu _menu;
    
 
      private Pause _pause;
-
-    public event UnityAction ReinforceEnemies;
 
     private void Awake()
     {
@@ -26,7 +23,6 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
     private void OnEnable()
     {
         _player.IsDead += FinishTheGame;
-        _timer.MilestoneReached += RequestImproveEnemies;
         _menu.ClosingPanel += DisablePause;
         _menu.OpeningPanel += EnablePause;
     }
@@ -34,15 +30,8 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
     private void OnDisable()
     {
         _player.IsDead -= FinishTheGame;
-        _timer.MilestoneReached -= RequestImproveEnemies;
         _menu.ClosingPanel -= DisablePause;
         _menu.OpeningPanel -= EnablePause;
-    }
-
-
-    private void RequestImproveEnemies()
-    {
-        ReinforceEnemies.Invoke();
     }
 
     private void EnablePause()
