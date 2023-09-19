@@ -19,7 +19,6 @@ public class Player : MonoBehaviour
 
     public event UnityAction IsDead;
 
-
     private void Awake()
     {
         _shield = GetComponent<PlayerShield>();
@@ -38,6 +37,11 @@ public class Player : MonoBehaviour
         _healthSystem.Died -= RunDeathEffectsCoroutine;
     }
 
+    private void UpdateShieldStatus(bool shieldStatus)
+    {
+        IsShieldActive = shieldStatus;
+    }
+
     private void RunDeathEffectsCoroutine()
     {
         _shield.enabled = false;
@@ -53,10 +57,5 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(PlaybackTimeOfDeathEffect);
 
         IsDead?.Invoke();
-    }
-
-    private void UpdateShieldStatus(bool shieldStatus)
-    {
-        IsShieldActive = shieldStatus;
     }
 }
