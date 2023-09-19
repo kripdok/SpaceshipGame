@@ -1171,7 +1171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d05b72e8c1186444281281c9215d4ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameManager: {fileID: 1485262895}
   _music: {fileID: 334433223}
   _musicClip: {fileID: 8300000, guid: cff03a511d33c124fbeb3040cc3ff458, type: 3}
   _stopMusicClip: {fileID: 8300000, guid: ce72082df84042d47ad03c4cdf121764, type: 3}
@@ -2098,6 +2097,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 483979510}
+  - component: {fileID: 483979511}
+  - component: {fileID: 483979512}
+  - component: {fileID: 483979514}
   m_Layer: 0
   m_Name: Maganars
   m_TagString: Untagged
@@ -2121,6 +2123,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &483979511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483979509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1283d2c5bb8b9489a45cd75bb075dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pointCounterUI: {fileID: 1245726310}
+  _targetNumber: 50
+--- !u!114 &483979512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483979509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 945425c4e1d1d8e449696e11777262f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timerUI: {fileID: 1312959137}
+  _targetTime: 30
+--- !u!114 &483979514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483979509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc8aef9dbba10e044ad308127005436e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _deadWindow: {fileID: 1273900746}
+  _music: {fileID: 334433222}
 --- !u!1 &493925954
 GameObject:
   m_ObjectHideFlags: 0
@@ -6235,15 +6279,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 5751476546953465736}
-  _playerHealthSystem: {fileID: 2087509365296453268}
-  _pointCounterUI: {fileID: 1245726310}
-  _timerUI: {fileID: 1312959137}
-  _playerHealthCounterUI: {fileID: 330496535}
+  _pointCounter: {fileID: 483979511}
+  _timer: {fileID: 483979512}
+  _gameOver: {fileID: 483979514}
   _menu: {fileID: 1527373142}
-  _deadWindow: {fileID: 1273900746}
   _levelUpButton: {fileID: 22262644}
-  _timeTarget: 30
-  _pointsTarget: 50
 --- !u!4 &1485262896
 Transform:
   m_ObjectHideFlags: 0
@@ -7160,7 +7200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1744524426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8450,17 +8490,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138959742}
   m_CullTransparentMesh: 1
---- !u!114 &2087509365296453268 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6331792281465521206, guid: 24a06d758d997de4892ef82aed296fcc, type: 3}
-  m_PrefabInstance: {fileID: 5415395196665582242}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8d5c140361a2e047956db106a4b99a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3584404842376054028 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8834096592955381678, guid: 24a06d758d997de4892ef82aed296fcc, type: 3}
@@ -8527,6 +8556,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6331792281465521206, guid: 24a06d758d997de4892ef82aed296fcc, type: 3}
+      propertyPath: _health
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6331792281465521206, guid: 24a06d758d997de4892ef82aed296fcc, type: 3}
+      propertyPath: _playerHealthCounterUI
+      value: 
+      objectReference: {fileID: 330496535}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24a06d758d997de4892ef82aed296fcc, type: 3}
 --- !u!114 &5751476546953465736 stripped

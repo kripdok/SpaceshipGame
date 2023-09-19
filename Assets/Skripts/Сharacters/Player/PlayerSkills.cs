@@ -1,8 +1,10 @@
-using System;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class PlayerSkills : MonoBehaviour // подумать над именами
+public class PlayerSkills : MonoBehaviour
 {
+    [SerializeField] private PointCounter _pointCounter;
+
     [Header("Initial characteristic")]
     [SerializeField] private float _speedAcceleration = 5f;
     [SerializeField] private float _shootDelay = 0.5f;
@@ -19,9 +21,11 @@ public class PlayerSkills : MonoBehaviour // подумать над именами
     public float ShootDelay => _concreteShootDelay;
     public float ShieldRuntime => _concreteShieldRuntime;
     public Bullet Bullet => _bullet;
+    private bool IsSkillPointNotZero => SkillPoint != 0;
 
+    public event UnityAction<int> PointHasBeenChanged;
 
-    private void Start()
+    private void Awake()
     {
         _concreteSpeedAcceleration = _speedAcceleration;
         _concreteShootDelay = _shootDelay;
@@ -29,28 +33,68 @@ public class PlayerSkills : MonoBehaviour // подумать над именами
         SkillPoint = 0;
     }
 
-    public void AddSkillPoint()
+    private void OnEnable()
+    {
+        _pointCounter.MilestoneReached += AddSkillPoint;
+    }
+
+    private void OnDisable()
+    {
+        _pointCounter.MilestoneReached -= AddSkillPoint;
+    }
+
+    public void IncreaseSpeed(float amount)
+    {
+        if (IsUsingSkillPoint())
+        {
+            _concreteSpeedAcceleration += amount;
+        }
+    }
+
+    public void IncreaseShootDelay(float amount)
+    {
+        if (IsUsingSkillPoint())
+        {
+            _concreteShootDelay -= amount;
+        }
+    }
+
+    public void IncreaseShieldRuntime(float amount)
+    {
+        if (IsUsingSkillPoint())
+        {
+            _concreteShieldRuntime += amount;
+        }
+    }
+
+    public void IncreaseDamage(int amount)
+    {
+        if (IsUsingSkillPoint())
+        {
+            _bullet.EnlargeDamage(amount);
+        }
+    }
+
+    private void AddSkillPoint()
     {
         SkillPoint++;
+        PointHasBeenChanged?.Invoke(SkillPoint);
     }
-    private bool TryUseSkillPoint(Action action)
+
+    private bool IsUsingSkillPoint()
     {
-        if(SkillPoint > 0)
+        if (IsSkillPointNotZero)
         {
-            SkillPoint--;
-            action();
+            UseSkillPoint();
             return true;
         }
 
         return false;
     }
 
-    public void IncreaseSpeed(float amount) => TryUseSkillPoint(() => _concreteSpeedAcceleration += amount);
-
-    public void IncreaseShootDelay(float amount) => TryUseSkillPoint(() => _concreteShootDelay -= amount);
-
-    public void IncreaseShieldRuntime(float amount) =>TryUseSkillPoint(() => _concreteShieldRuntime += amount);
-
-    public void IncreaseDamage(int amount) => TryUseSkillPoint(() => _bullet.EnlargeDamage(amount));
-
+    private void UseSkillPoint()
+    {
+        SkillPoint--;
+        PointHasBeenChanged?.Invoke(SkillPoint);
+    }
 }

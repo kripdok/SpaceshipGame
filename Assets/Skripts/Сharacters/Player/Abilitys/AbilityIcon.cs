@@ -8,23 +8,46 @@ public class AbilityIcon : MonoBehaviour
     [SerializeField] private Button _button;
     [SerializeField] private TMP_Text _name;
 
-    public bool IsFull => _ability.IsMaxNumber;
+    private PlayerSkills _playerSkills;
+
+    public bool LimitIsReached => _ability.IsMaxNumber;
 
     private void Start()
     {
         _name.text = _ability.Name;
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        if (IsFull)
+        _button.onClick.AddListener(TryEnableButton);
+        _button.onClick.AddListener(ApplyAbility);
+    }
+
+    private void OnDisable()
+    {
+        _button.onClick.RemoveAllListeners();
+    }
+
+    public void ChangeActivationMode(bool state)
+    {
+        _button.interactable= state;
+    }
+
+    public void AddPlayerSkills(PlayerSkills skills)
+    {
+        _playerSkills = skills;
+    }
+
+    private void TryEnableButton()
+    {
+        if (LimitIsReached)
         {
-            _button.interactable= false;
+            _button.interactable = false;
         }
     }
 
-    public void OperateButton(bool state)
+    private void ApplyAbility()
     {
-        _button.interactable= state;
+        _ability.ImproveSkill(_playerSkills);
     }
 }

@@ -13,8 +13,7 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
     [SerializeField] private GameOver _gameOver;
     [Header("UI")]
     [SerializeField] private Menu _menu;
-    
-    [SerializeField] private Button _levelUpButton;    
+   
 
      private Pause _pause;
 
@@ -23,13 +22,11 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
     private void Awake()
     {
         _pause = new Pause();
-        _levelUpButton.gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
         _player.IsDead += FinishTheGame;
-        _pointCounter.MilestoneReached += ActivateLevelUpButton;
         _timer.MilestoneReached += RequestImproveEnemies;
         _menu.ClosingPanel += DisablePause;
         _menu.OpeningPanel += EnablePause;
@@ -38,17 +35,11 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
     private void OnDisable()
     {
         _player.IsDead -= FinishTheGame;
-        _pointCounter.MilestoneReached -= ActivateLevelUpButton;
         _timer.MilestoneReached -= RequestImproveEnemies;
         _menu.ClosingPanel -= DisablePause;
         _menu.OpeningPanel -= EnablePause;
     }
 
-    private void ActivateLevelUpButton() // выделить отдельную систему?
-    {
-        _player.GetComponent<PlayerSkills>().AddSkillPoint();
-        _levelUpButton.gameObject.SetActive(true);
-    }
 
     private void RequestImproveEnemies()
     {

@@ -11,7 +11,7 @@ public class SpeedAbility : Ability
         Name = _name;
     }
 
-    public override void Apply(PlayerSkills skills)
+    public override void ImproveSkill(PlayerSkills skills)
     {
         ConcreteNumber++;
         skills.IncreaseSpeed(_speed);

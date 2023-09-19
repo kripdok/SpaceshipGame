@@ -5,14 +5,17 @@ public class PointCounter : MonoBehaviour
 {
     [SerializeField] private PointCounterUI _pointCounterUI;
     [SerializeField] private int _targetNumber = 50;
-    public int CorrectPoint { get; private set; }
+
+    private int _correctPoint;
+
+    public int CorrectPoint => _correctPoint;
 
     public event UnityAction MilestoneReached;
 
     public void Awake()
     {
-        CorrectPoint = 0;
-        _pointCounterUI.ChangeValue(CorrectPoint, _targetNumber);
+        _correctPoint = 0;
+        _pointCounterUI.DisplayPointsOnScreen(_correctPoint);
     }
 
     private void OnEnable()
@@ -27,21 +30,17 @@ public class PointCounter : MonoBehaviour
 
     private void AddPoints(int points)
     {
-        CorrectPoint += points;
-
-        if (CorrectPoint >= _targetNumber)
-        {
-            ChangeTargetPoint();
-        }
-
-        _pointCounterUI.ChangeValue(CorrectPoint, _targetNumber);
+        _correctPoint += points;
+        TryChangeTargetPoint();
+        _pointCounterUI.DisplayPointsOnScreen(_correctPoint);
     }
 
-    private void ChangeTargetPoint()
+    private void TryChangeTargetPoint()
     {
-
-        MilestoneReached?.Invoke();
-        _targetNumber *= 2;
-
+        if (_correctPoint >= _targetNumber)
+        {
+            MilestoneReached?.Invoke();
+            _targetNumber *= 2;
+        }
     }
 }

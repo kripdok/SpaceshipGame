@@ -5,8 +5,8 @@ public class PointCounterUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text _text;
 
-    public void ChangeValue(int number, int targetNumber) // какое value?
+    public void DisplayPointsOnScreen(int points)
     {
-        _text.text = number + "/" + targetNumber;
+        _text.text = points.ToString();
     }
 }

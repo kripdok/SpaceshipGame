@@ -10,32 +10,48 @@ public class LevelUpWindow : MonoBehaviour
     [SerializeField] private List<AbilityIcon> _icons;
     [SerializeField] private Button _levelUpButton;
 
+    private void Awake()
+    {
+        AddPlayerSkillsToAbilityIcons();
+    }
+
     private void OnEnable()
     {
-        if (_skills.SkillPoint > 0)
+        TryActivateIcons();
+    }
+
+    public void DisplayPointsOnWindow(int skillPoint)
+    {
+        _pointNumber.text = "X" + skillPoint;
+    }
+
+    public void TryTurnOffAllAbilityIcon(int skillPoint)
+    {
+        if (skillPoint == 0)
         {
             foreach (AbilityIcon icon in _icons)
             {
-                if (icon.IsFull == false)
-                {
-                    icon.OperateButton(true);
-                }
+                icon.ChangeActivationMode(false);
             }
         }
     }
 
-    private void Update()
+    private void AddPlayerSkillsToAbilityIcons()
     {
-        _pointNumber.text = "X" + _skills.SkillPoint.ToString(); //сделать метод и вынести из обновления
-
-        if(_skills.SkillPoint == 0)
+        foreach (var icon in _icons)
         {
-            foreach(AbilityIcon icon in  _icons)
-            {
-                icon.OperateButton(false);
-            }
+            icon.AddPlayerSkills(_skills);
+        }
+    }
 
-            _levelUpButton.gameObject.SetActive(false);
+    private void TryActivateIcons()
+    {
+        foreach (AbilityIcon icon in _icons)
+        {
+            if (icon.LimitIsReached == false)
+            {
+                icon.ChangeActivationMode(true);
+            }
         }
     }
 }
