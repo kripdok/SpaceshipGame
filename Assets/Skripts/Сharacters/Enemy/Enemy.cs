@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour
 
     private void SpavnItem()
     {
-        Item item = _itemSpawner.GetItem();
+        Item item = _itemSpawner.TryGetItem();
 
         if (item != null)
         {

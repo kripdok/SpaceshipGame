@@ -3,15 +3,17 @@ using UnityEngine;
 
 public abstract class Item : MonoBehaviour
 {
+    private const float MaxPercent = 100;
+
     [SerializeField] private float _lifeTime;
-    [Range(0f, 100f)] // Надо добавить переменную, которая будет отвечать за 100
+    [Range(0f, MaxPercent)]
     [SerializeField] private float _percentSpawn;
 
     public float PercentSpawn => _percentSpawn;
 
     private void OnEnable()
     {
-        StartCoroutine(SelfDistract());
+        StartCoroutine(StartSelfDestructTimer());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -23,16 +25,16 @@ public abstract class Item : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        StopCoroutine(SelfDistract());
-    }
-
     protected abstract void TakeEffect(Player player);
 
-    private IEnumerator SelfDistract()
+    private IEnumerator StartSelfDestructTimer()
     {
         yield return new WaitForSeconds(_lifeTime);
+        SelfDestroy();
+    }
+
+    private void SelfDestroy()
+    {
         Destroy(gameObject);
     }
 }

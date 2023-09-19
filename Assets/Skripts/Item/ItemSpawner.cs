@@ -8,18 +8,16 @@ public class ItemSpawner : ScriptableObject
 
     [SerializeField] private List<Item> _items;
 
-    public Item GetItem()
+    public Item TryGetItem()
+    {
+        Item item = GetItem();
+        float precentToSpawn = Random.Range(0, MaxPrecent);
+        return item.PercentSpawn >= precentToSpawn? item : null;
+    }
+
+    private Item GetItem()
     {
         int index = Random.Range(0, _items.Count);
-        Item item = _items[index];
-        
-        float precent = Random.Range(0, MaxPrecent);
-
-        if(precent <= item.PercentSpawn)
-        {
-            return item;
-        }
-
-        return null;
+        return _items[index];
     }
 }
