@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class Asteroid : Enemy
 {
     [Header("Spead")]
@@ -12,27 +13,17 @@ public class Asteroid : Enemy
     [SerializeField] protected float MaxScale;
     [Space(5)]
 
-
+    private Rigidbody2D _rigidbody;
+    private float _speed;
     private float _rotationSpeed;
 
     protected void Awake()
     {
-        RigidBody = GetComponent<Rigidbody2D>();
-        HealthSystem = GetComponent<HealthSystem>();
+        _rigidbody = GetComponent<Rigidbody2D>();
 
         transform.localScale = EnemyRandomizer.SetScale(MinScale, MaxScale);
         _rotationSpeed = EnemyRandomizer.SetFloat(-MaxSpeedRotation, MaxSpeedRotation);
-        Speed = EnemyRandomizer.SetFloat(MinSpeed, MaxSpeed);
-    }
-
-    private void OnEnable()
-    {
-        HealthSystem.Died += Die;
-    }
-
-    private void OnDisable()
-    {
-        HealthSystem.Died -= Die;
+        _speed = EnemyRandomizer.SetFloat(MinSpeed, MaxSpeed);
     }
 
     private void FixedUpdate()
@@ -43,12 +34,11 @@ public class Asteroid : Enemy
     public override void Move(Vector2 moveDirection)
     {
 
-        RigidBody.AddForce(moveDirection * Speed, ForceMode2D.Impulse);
+        _rigidbody.AddForce(moveDirection * _speed, ForceMode2D.Impulse);
     }
 
-    private void Rotate() // А если я хочу сделать класс который тоже крутиться, но не является астеройдом. Возможно бредовая идея, но может тоже выделить отдельный интерфейс
-        // Скорее всего сдесь я перегибаю палку.
+    private void Rotate() 
     {
-        RigidBody.rotation += _rotationSpeed;
+        _rigidbody.rotation += _rotationSpeed;
     }
 }

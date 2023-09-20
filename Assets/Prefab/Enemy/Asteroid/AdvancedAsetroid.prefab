@@ -143,6 +143,9 @@ GameObject:
   - component: {fileID: 1126493637685687446}
   - component: {fileID: 6390828959430219965}
   - component: {fileID: 7173905347088947327}
+  - component: {fileID: 196904879901351170}
+  - component: {fileID: 4314488715310371730}
+  - component: {fileID: 3572846289707720046}
   m_Layer: 0
   m_Name: AdvancedAsetroid
   m_TagString: Untagged
@@ -229,18 +232,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b87124a4cebc994e993e8dd6d21bcc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemSpawner: {fileID: 11400000, guid: 828bae71eeac73b42b18f737716aa8d5, type: 2}
-  _sound: {fileID: 5283922040390015057}
-  _effect: {fileID: 8929389767981695225}
-  _circleCollider: {fileID: 1126493637685687446}
-  _body: {fileID: 3094568215966137721}
   _points: 50
-  _damage: 1
+  _enemyDeath: {fileID: 4314488715310371730}
+  _spawnItem: {fileID: 3572846289707720046}
   MaxSpeedRotation: 4
   MinSpeed: 1
   MaxSpeed: 3
   MinScale: 1
   MaxScale: 1.2
+--- !u!114 &196904879901351170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3768739357953217320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fccb9ab8b8cac5f4da2373426eb53230, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 1
+--- !u!114 &4314488715310371730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3768739357953217320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e463ea2f571c7543bebf0c4e47e8155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sound: {fileID: 5283922040390015057}
+  Effect: {fileID: 8929389767981695225}
+  _body: {fileID: 3094568215966137721}
+  _circleCollider: {fileID: 1126493637685687446}
+  _healthSystem: {fileID: 6390828959430219965}
+--- !u!114 &3572846289707720046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3768739357953217320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a61ea67fb5e7f43ae03cb3ece744c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemSpawner: {fileID: 11400000, guid: 828bae71eeac73b42b18f737716aa8d5, type: 2}
 --- !u!1 &5151706673444739561
 GameObject:
   m_ObjectHideFlags: 0

@@ -156,6 +156,9 @@ GameObject:
   - component: {fileID: 3411236815510223410}
   - component: {fileID: 8666604799616652825}
   - component: {fileID: 4862738430393947867}
+  - component: {fileID: 3578253074851318404}
+  - component: {fileID: 4620244078968419108}
+  - component: {fileID: 5379210633311152283}
   m_Layer: 0
   m_Name: SmallAsteroid
   m_TagString: Untagged
@@ -242,18 +245,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b87124a4cebc994e993e8dd6d21bcc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemSpawner: {fileID: 11400000, guid: 828bae71eeac73b42b18f737716aa8d5, type: 2}
-  _sound: {fileID: 6888037711144031366}
-  _effect: {fileID: 564210540508657555}
-  _circleCollider: {fileID: 3411236815510223410}
-  _body: {fileID: 1709962338164654662}
   _points: 50
-  _damage: 1
+  _enemyDeath: {fileID: 4620244078968419108}
+  _spawnItem: {fileID: 5379210633311152283}
   MaxSpeedRotation: 4
   MinSpeed: 2
   MaxSpeed: 4
   MinScale: 0.5
   MaxScale: 0.8
+--- !u!114 &3578253074851318404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493082139931139468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fccb9ab8b8cac5f4da2373426eb53230, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 1
+--- !u!114 &4620244078968419108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493082139931139468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e463ea2f571c7543bebf0c4e47e8155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sound: {fileID: 6888037711144031366}
+  Effect: {fileID: 564210540508657555}
+  _body: {fileID: 1709962338164654662}
+  _circleCollider: {fileID: 3411236815510223410}
+  _healthSystem: {fileID: 8666604799616652825}
+--- !u!114 &5379210633311152283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493082139931139468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a61ea67fb5e7f43ae03cb3ece744c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemSpawner: {fileID: 11400000, guid: 828bae71eeac73b42b18f737716aa8d5, type: 2}
 --- !u!1 &1709962338164654662
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,13 +19,12 @@ public class AbilityIcon : MonoBehaviour
 
     private void OnEnable()
     {
-        _button.onClick.AddListener(TryEnableButton);
         _button.onClick.AddListener(ApplyAbility);
     }
 
     private void OnDisable()
     {
-        _button.onClick.RemoveAllListeners();
+        _button.onClick.RemoveListener(ApplyAbility);
     }
 
     public void ChangeActivationMode(bool state)
@@ -49,5 +48,6 @@ public class AbilityIcon : MonoBehaviour
     private void ApplyAbility()
     {
         _ability.ImproveSkill(_playerSkills);
+        TryEnableButton();
     }
 }

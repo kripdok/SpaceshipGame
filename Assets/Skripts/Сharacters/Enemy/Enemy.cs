@@ -1,79 +1,39 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(HealthSystem))]
-public class Enemy : MonoBehaviour
+[RequireComponent(typeof(HealthSystem))]
+[RequireComponent(typeof(EnemyAttack))]
+[RequireComponent(typeof(EnemyDeath))]
+[RequireComponent(typeof(SpawnItem))]
+public abstract class Enemy : MonoBehaviour
 {
-    [SerializeField] private ItemSpawner _itemSpawner;
-    [SerializeField] private EnemySound _sound;
-    [SerializeField] private EnemyEffect _effect;
-    [SerializeField] private CircleCollider2D _circleCollider;
-    [SerializeField] private GameObject _body;
     [SerializeField] private int _points;
-    [SerializeField] private int _damage;
-    [Space (5)]
-    
-
-    protected Rigidbody2D RigidBody;
-    protected HealthSystem HealthSystem;
-    protected float Speed;
+    [SerializeField] private EnemyDeath _enemyDeath;
+    [SerializeField] private SpawnItem _spawnItem;
 
     public static event UnityAction<int> PassPoint;
 
-    public virtual void Move(Vector2 moveDirection) { } // А если я хочу добавить врагов, которые на двигаются. Они не будут пользоваться этим методом. Может сделать интерфейс?
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void Awake()
     {
-        if (collision.gameObject.TryGetComponent<Player>(out Player player))
-        {
-            player.GetComponent<HealthSystem>().CauseDamage(_damage);
-
-        }
+        _spawnItem = GetComponent<SpawnItem>();
     }
 
     private void OnEnable()
     {
-        HealthSystem.Died += Die;
+        _enemyDeath.EffectPlayed += Destroy;
     }
 
     private void OnDisable()
     {
-        HealthSystem.Died -= Die;
+        _enemyDeath.EffectPlayed -= Destroy;
     }
 
-    protected virtual void Die()
-    {
-        StartCoroutine(PlayDaiEffect());
-    }
+    public abstract void Move(Vector2 moveDirection);
 
-    private void SpavnItem()
+    protected virtual void Destroy()
     {
-        Item item = _itemSpawner.TryGetItem();
-
-        if (item != null)
-        {
-            item = Instantiate(item, transform.position, Quaternion.identity);
-        }
-    }
-
-    private void Destroy() // Переделать систему смерти. 
-    {
-        StopCoroutine(PlayDaiEffect());
-        SpavnItem();
-        Destroy(gameObject);
-    }
-
-    private IEnumerator PlayDaiEffect()
-    {
-        _sound.PlaySound(_sound.Dead);
-        _circleCollider.isTrigger = true;
-        _effect.DeathEffect.Play();
-        _body.SetActive(false);
+        _spawnItem.Spawn();
         PassPoint?.Invoke(_points);
-
-        yield return new WaitForSeconds(2f); // Добавить переменную отвечающую за эту цифру
-
-        Destroy();
+        Destroy(gameObject);
     }
 }

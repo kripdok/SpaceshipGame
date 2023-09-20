@@ -235,6 +235,10 @@ GameObject:
   - component: {fileID: 589589675186998927}
   - component: {fileID: 3196672054457960626}
   - component: {fileID: 6755061060850699653}
+  - component: {fileID: 1145172341624120404}
+  - component: {fileID: 970721040256375527}
+  - component: {fileID: 4082535258271238674}
+  - component: {fileID: 8177344010513176968}
   m_Layer: 0
   m_Name: HugeAsteroid
   m_TagString: Untagged
@@ -308,21 +312,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a45f229acb2f0104f90b065d2b8527c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemSpawner: {fileID: 11400000, guid: 828bae71eeac73b42b18f737716aa8d5, type: 2}
-  _sound: {fileID: 2950778260726007560}
-  _effect: {fileID: 4403770097892096924}
-  _circleCollider: {fileID: 589589675186998927}
-  _body: {fileID: 4952743202377237886}
   _points: 400
-  _damage: 1
+  _enemyDeath: {fileID: 4082535258271238674}
+  _spawnItem: {fileID: 8177344010513176968}
   MaxSpeedRotation: 4
   MinSpeed: 2
   MaxSpeed: 5
   MinScale: 2.3
   MaxScale: 2.5
-  _asteroid: {fileID: 2130102410270597277, guid: 850b4387b3aaec244a663b9f96bf6503, type: 3}
-  _numberOfSplits: 2
-  _splitSpeed: 1
 --- !u!114 &6755061060850699653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,6 +333,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 10
+--- !u!114 &1145172341624120404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3729542527979202865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5cb1246ebb8aad4886d8e454f195048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _asteroid: {fileID: 2130102410270597277, guid: 850b4387b3aaec244a663b9f96bf6503, type: 3}
+  _numberOfSplits: 2
+--- !u!114 &970721040256375527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3729542527979202865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fccb9ab8b8cac5f4da2373426eb53230, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 1
+--- !u!114 &4082535258271238674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3729542527979202865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e463ea2f571c7543bebf0c4e47e8155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sound: {fileID: 2950778260726007560}
+  Effect: {fileID: 4403770097892096924}
+  _body: {fileID: 4952743202377237886}
+  _circleCollider: {fileID: 589589675186998927}
+  _healthSystem: {fileID: 6755061060850699653}
+--- !u!114 &8177344010513176968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3729542527979202865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a61ea67fb5e7f43ae03cb3ece744c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemSpawner: {fileID: 11400000, guid: 828bae71eeac73b42b18f737716aa8d5, type: 2}
 --- !u!1 &4425239493473301131
 GameObject:
   m_ObjectHideFlags: 0

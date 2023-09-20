@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class GameManager : MonoBehaviour // Ответственности у него чето много. Может разделить его на несколько managerov?
 {
     [Header("Player")]
-    [SerializeField] private Player _player;
+    [SerializeField] private PlayerDeathSystem _deathSystem;
     [Space(5)]
     
     [SerializeField] private PointCounter _pointCounter;
@@ -22,14 +22,14 @@ public class GameManager : MonoBehaviour // Ответственности у него чето много. М
 
     private void OnEnable()
     {
-        _player.IsDead += FinishTheGame;
+        _deathSystem.IsDead += FinishTheGame;
         _menu.ClosingPanel += DisablePause;
         _menu.OpeningPanel += EnablePause;
     }
 
     private void OnDisable()
     {
-        _player.IsDead -= FinishTheGame;
+        _deathSystem.IsDead -= FinishTheGame;
         _menu.ClosingPanel -= DisablePause;
         _menu.OpeningPanel -= EnablePause;
     }
