@@ -3,9 +3,9 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private PlayerControlParameters _parameters;
-    [SerializeField] private ShootingSystem _shootingSystem;
-    [SerializeField] private MovementSystem _movementSystem;
-    [SerializeField] private RotationSystem _rotationSystem;
+    [SerializeField] private PlayerShootingSystem _shootingSystem;
+    [SerializeField] private PlayerMovementSystem _movementSystem;
+    [SerializeField] private PlayerRotationSystem _rotationSystem;
 
     private void FixedUpdate()
     {

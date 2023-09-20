@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ShootingSystem : MonoBehaviour 
+public class PlayerShootingSystem : MonoBehaviour 
 {
     [SerializeField] private PlayerSound _sound;
     [SerializeField] private PlayerSkills _skills;
@@ -22,7 +22,7 @@ public class ShootingSystem : MonoBehaviour
         {
             _sound.PlaySound(_sound.Shoot);
             Bullet bullet = Instantiate(_bullet, position, Quaternion.identity);
-            bullet.Fire(directionToMouse);
+            bullet.Move(directionToMouse);
             _lastShootTime = _shootDelay;
         }
     }

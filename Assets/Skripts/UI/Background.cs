@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class Background : MonoBehaviour // 1. переименовать
-    //2. Система выглядет очень переусложненой и плохло четабильной, за счет длинных расчетов камеры.
+public class Background : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _maxMoveRadius;
+    [SerializeField] private Camera _camera;
 
-
+    private Vector3 _cameraPosition;
     private InputActionControls _input;
     private Vector2 _direction = Vector2.zero;
     private Vector2 _targetPosition;
@@ -16,6 +16,7 @@ public class Background : MonoBehaviour // 1. переименовать
     private void Start()
     {
         _startPosition = transform.position;
+        _cameraPosition = _camera.transform.position;
         _input = new InputActionControls();
         _input.Enable();
     }
@@ -28,18 +29,28 @@ public class Background : MonoBehaviour // 1. переименовать
         }
 
         _targetPosition = UpdateTargetPosition(_direction);
-        UpdateTargetPosition(_direction);
         MoveTovardTarget();
+    }
+
+    private Vector2 UpdateDirectionBasedOnMouse()
+    {
+        Vector3 mousePos = MouseScreenPosition();
+        return (mousePos - _cameraPosition).normalized;
+    }
+
+    private Vector3 MouseScreenPosition()
+    {
+        return _camera.ScreenToWorldPoint(Input.mousePosition);
     }
 
     private Vector2 UpdateTargetPosition(Vector2 direction)
     {
-        float moveFraction = Mathf.Clamp01(Vector3.Distance(Camera.main.ScreenToWorldPoint(Input.mousePosition), Camera.main.transform.position) / Screen.width);
+        float moveFraction = Mathf.Clamp01(Vector3.Distance(MouseScreenPosition(), _cameraPosition) / Screen.width);
         Vector2 position = _startPosition + direction * _maxMoveRadius * moveFraction;
 
         if (Vector2.Distance(_startPosition, _targetPosition) > _maxMoveRadius)
         {
-            _targetPosition = _startPosition + (direction.normalized * _maxMoveRadius);
+            return _startPosition + (direction.normalized * _maxMoveRadius);
         }
 
         return position;
@@ -60,12 +71,6 @@ public class Background : MonoBehaviour // 1. переименовать
         }
 
         transform.position = Vector2.Lerp(transform.position, _targetPosition, _speedModifier * Time.deltaTime);
-    }
-
-    private Vector2 UpdateDirectionBasedOnMouse()
-    {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        return (mousePos - Camera.main.transform.position).normalized;
     }
 
     private bool IsMove()

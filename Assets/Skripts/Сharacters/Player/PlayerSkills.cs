@@ -71,7 +71,7 @@ public class PlayerSkills : MonoBehaviour
     {
         if (IsUsingSkillPoint())
         {
-            _bullet.EnlargeDamage(amount);
+            _bullet.IncreaseDamage(amount);
         }
     }
 

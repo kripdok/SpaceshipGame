@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MoveSourceController: MonoBehaviour
 {
-    [SerializeField] private MovementSystem _movementSystem;
+    [SerializeField] private PlayerMovementSystem _movementSystem;
     [SerializeField] private AudioSource _MoveSourse;
     [SerializeField] private AudioClip _clip;
     [SerializeField] private float speed = 0.2f;

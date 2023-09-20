@@ -26,14 +26,13 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void Fire(Vector2 moveDirection) // пуля стреляет? может она куда то двигается?
+    public void Move(Vector2 moveDirection)
     {
         _rigidbody.AddForce(moveDirection * _speed, ForceMode2D.Impulse);
     }
 
-    public void EnlargeDamage(int damage) // Что за тупое название.
+    public void IncreaseDamage(int damage)
     {
         _concreteDamage += damage;
     }
-
 }

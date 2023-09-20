@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class MovementSystem : MonoBehaviour
+public class PlayerMovementSystem : MonoBehaviour
 {
     [SerializeField] private PlayerSkills _skills;
     [SerializeField] private PlayerEffects _effects;

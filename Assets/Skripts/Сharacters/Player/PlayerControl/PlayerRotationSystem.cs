@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RotationSystem : MonoBehaviour
+public class PlayerRotationSystem : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rigidbody;
 
