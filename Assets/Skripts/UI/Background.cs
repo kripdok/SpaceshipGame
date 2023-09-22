@@ -5,6 +5,7 @@ public class Background : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _maxMoveRadius;
     [SerializeField] private Camera _camera;
+    [SerializeField] private InputControlSystem _controlSystem;
 
     private Vector3 _cameraPosition;
     private InputActionControls _input;
@@ -17,7 +18,7 @@ public class Background : MonoBehaviour
     {
         _startPosition = transform.position;
         _cameraPosition = _camera.transform.position;
-        _input = new InputActionControls();
+        _input = _controlSystem.Input;
         _input.Enable();
     }
 

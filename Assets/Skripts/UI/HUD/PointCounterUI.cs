@@ -1,12 +1,12 @@
 using TMPro;
 using UnityEngine;
 
-public class PointCounterUI : MonoBehaviour
+public class PointCounterUI : MonoBehaviour , IUIDisplay<int>
 {
     [SerializeField] private TMP_Text _text;
 
-    public void DisplayPointsOnScreen(int points)
+    public void DisplayVolumeOnScreen(int value)
     {
-        _text.text = points.ToString();
+        _text.text = value.ToString();
     }
 }

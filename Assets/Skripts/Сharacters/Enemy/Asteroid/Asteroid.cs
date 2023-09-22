@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Asteroid : Enemy
 {
-    [Header("Spead")]
+    [Header("Speed")]
     [SerializeField] protected float MaxSpeedRotation = 4;
     [SerializeField] protected float MinSpeed;
     [SerializeField] protected float MaxSpeed;

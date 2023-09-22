@@ -1,12 +1,12 @@
 using TMPro;
 using UnityEngine;
 
-public class PlayerHealthCounterUI : MonoBehaviour
+public class PlayerHealthCounterUI : MonoBehaviour , IUIDisplay<int>
 {
     [SerializeField] private TMP_Text _text;
 
-    public void DisplayHealthOnScreen(int health)
+    public void DisplayVolumeOnScreen(int value)
     {
-        _text.text = "X" + health;
+        _text.text = "X" + value;
     }
 }

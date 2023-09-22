@@ -2,12 +2,12 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class TimerUI : MonoBehaviour
+public class TimerUI : MonoBehaviour , IUIDisplay<TimeSpan>
 {
     [SerializeField] private TMP_Text _text;
 
-    public void DisplayTimeOnScreen(TimeSpan time)
+    public void DisplayVolumeOnScreen(TimeSpan value)
     {
-        _text.text = string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
+        _text.text = string.Format("{0:D2}:{1:D2}", value.Minutes, value.Seconds);
     }
 }

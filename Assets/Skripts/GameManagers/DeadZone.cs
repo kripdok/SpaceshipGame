@@ -11,7 +11,7 @@ public class DeadZone : MonoBehaviour
     private void Start()
     {
         _collider = GetComponent<BoxCollider2D>();
-        AdjustSize();
+        TryChangeSize();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -19,7 +19,7 @@ public class DeadZone : MonoBehaviour
         Destroy(collision.gameObject);
     }
 
-    private void AdjustSize() // Название менять
+    private void TryChangeSize() // Название менять
     {
         if (_collider != null && Camera.main != null)
         {

@@ -1,18 +1,12 @@
 using UnityEngine;
-using UnityEngine.Events;
 
-public class GameManager : MonoBehaviour // Ответственности у него чето много. Может разделить его на несколько managerov?
+public class TimeControlSystem : MonoBehaviour
 {
-    [Header("Player")]
     [SerializeField] private PlayerDeathSystem _deathSystem;
-    [Space(5)]
-    
     [SerializeField] private PointCounter _pointCounter;
     [SerializeField] private GameOver _gameOver;
-    [Header("UI")]
     [SerializeField] private Menu _menu;
    
-
      private Pause _pause;
 
     private void Awake()

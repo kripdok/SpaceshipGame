@@ -1,12 +1,12 @@
 using TMPro;
 using UnityEngine;
 
-public class DeadWindow : Panel
+public class DeadWindow : Panel, IUIDisplay<int>
 {
     [SerializeField] private TMP_Text _score;
 
-    public void SetScore(int score) // плохое название
+    public void DisplayVolumeOnScreen(int value)
     {
-        _score.text = score.ToString();
+        _score.text = value.ToString();
     }
 }

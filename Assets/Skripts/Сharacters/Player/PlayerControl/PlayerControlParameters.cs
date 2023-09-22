@@ -3,18 +3,14 @@ using UnityEngine;
 public class PlayerControlParameters : MonoBehaviour
 {
     [SerializeField] Rigidbody2D _rigidbody;
+    [SerializeField] private InputControlSystem _controlSystem;
 
     private InputActionControls _input;
 
-    private void Awake()
+    private void Start()
     {
-        _input = new InputActionControls();
+        _input = _controlSystem.Input;
 
-        _input.Enable();
-    }
-
-    private void OnEnable()
-    {
         _input.Enable();
     }
 

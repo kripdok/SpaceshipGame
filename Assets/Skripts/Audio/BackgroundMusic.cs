@@ -3,9 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class BackgroundMusic : MonoBehaviour
 {
-    [SerializeField] private AudioSource _music;
     [SerializeField] private AudioClip _musicClip;
     [SerializeField] private AudioClip _stopMusicClip;
+
+    private AudioSource _music;
 
     private void Awake()
     {

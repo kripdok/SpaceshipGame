@@ -18,6 +18,6 @@ public class GameOver : MonoBehaviour
     private void OpenLoseWindow(int playerPoint)
     {
         _deadWindow.gameObject.SetActive(true);
-        _deadWindow.SetScore(playerPoint);
+        _deadWindow.DisplayVolumeOnScreen(playerPoint);
     }
 }

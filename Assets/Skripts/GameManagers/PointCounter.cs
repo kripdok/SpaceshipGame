@@ -15,7 +15,7 @@ public class PointCounter : MonoBehaviour
     public void Awake()
     {
         _correctPoint = 0;
-        _pointCounterUI.DisplayPointsOnScreen(_correctPoint);
+        _pointCounterUI.DisplayVolumeOnScreen(_correctPoint);
     }
 
     private void OnEnable()
@@ -32,7 +32,7 @@ public class PointCounter : MonoBehaviour
     {
         _correctPoint += points;
         TryChangeTargetPoint();
-        _pointCounterUI.DisplayPointsOnScreen(_correctPoint);
+        _pointCounterUI.DisplayVolumeOnScreen(_correctPoint);
     }
 
     private void TryChangeTargetPoint()

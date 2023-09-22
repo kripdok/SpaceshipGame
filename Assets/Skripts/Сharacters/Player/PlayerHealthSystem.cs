@@ -44,6 +44,6 @@ public class PlayerHealthSystem : HealthSystem
 
     private void ChangeValueUI()
     {
-        _playerHealthCounterUI.DisplayHealthOnScreen(_correctHealth);
+        _playerHealthCounterUI.DisplayVolumeOnScreen(_correctHealth);
     }
 }

@@ -16,7 +16,6 @@ public class Bullet : MonoBehaviour
         Damage = _damage;
     }
 
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.TryGetComponent<HealthSystem>(out HealthSystem health))

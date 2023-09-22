@@ -30,7 +30,7 @@ public class Timer : MonoBehaviour
     {
         _correñtTime += Time.deltaTime;
         TimeSpan time = TimeSpan.FromSeconds(_correñtTime);
-        _timerUI.DisplayTimeOnScreen(time);
+        _timerUI.DisplayVolumeOnScreen(time);
     }
 
     private void ChangeTargetTime()

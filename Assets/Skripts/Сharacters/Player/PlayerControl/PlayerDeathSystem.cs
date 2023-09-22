@@ -10,6 +10,7 @@ public class PlayerDeathSystem : Death
     [SerializeField] private PlayerControl _control;
     [SerializeField] private PlayerShield _shield;
     [SerializeField] private PlayerHealthSystem _healthSystem;
+    [SerializeField] private PolygonCollider2D _collider;
 
     private float PlaybackTimeOfDeathEffect = 2;
 
@@ -33,7 +34,9 @@ public class PlayerDeathSystem : Death
     protected override IEnumerator PlayTheDeathEffects()
     {
         _sound.PlaySound(_sound.Dead);
+        _effects.EngineEffect.Stop();
         _effects.DeathEffect.Play();
+        _collider.isTrigger = true;
         _shield.enabled = false;
         _body.gameObject.SetActive(false);
         _control.enabled = false;
